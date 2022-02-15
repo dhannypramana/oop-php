@@ -1,4 +1,6 @@
 <?php
+    // Pertemuan 2 : Property & Method
+    
     class Produk
     {
         // Property
