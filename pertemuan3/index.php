@@ -1,4 +1,6 @@
 <?php
+    // Pertemuan 3 : Constructor Method
+    
     class Produk
     {
         // Property
