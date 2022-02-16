@@ -1,7 +1,7 @@
 <?php
     // Pertemuan 11 : Abstract Class
 
-    class Produk
+    abstract class Produk
     {
         private $title,
                 $studio,
@@ -22,7 +22,9 @@
             return "$this->studio, $this->genre";
         }
 
-        protected function getInfoProduk()
+        abstract public function getInfoProduk();
+
+        public function getInfo()
         {
             $str = "{$this->title} | {$this->getLabel()} (Rp.{$this->price})";
             return $str;
@@ -97,7 +99,7 @@
 
         public function getInfoProduk()
         {
-            $str = "Anime : " . parent::getInfoProduk() . " - {$this->totalEpisode} Episode";
+            $str = "Anime : " . $this->getInfo() . " - {$this->totalEpisode} Episode";
             return $str;
         }
     }
@@ -113,23 +115,39 @@
         
         public function getInfoProduk()
         {
-            $str = "Game : ". parent::getInfoProduk() ." ~ {$this->totalPlayTime} Jam";
+            $str = "Game : ". $this->getInfo() ." ~ {$this->totalPlayTime} Jam";
+            return $str;
+        }
+    }
+
+    class CetakInfoProduk
+    {
+        public $daftarProduk = [];
+
+        public function addProduk(Produk $produk)
+        {
+            $this->daftarProduk[] = $produk;
+        }
+
+        public function cetak()
+        {
+            $str = "DAFTAR PRODUK : <br>";
+            
+            foreach ($this->daftarProduk as $dp) {
+                $str .= " - {$dp->getInfoProduk()}<br>";
+            }
+
             return $str;
         }
     }
     
     
+    
     // Driver
     $produk1 = new Anime("Attack On Titan", "MAPPA", "Action", 30000, 80);
     $produk2 = new Game("Grand Theft Auto", "Rockstar Studio", "Gangster Life", 50000, 50);
-
-    echo $produk1->getInfoProduk()."<br>";
-    echo $produk2->getInfoProduk()."<br>";
-
-    echo $produk1->getPrice()."<br>";
-    $produk2->setDiscount(50);
-    echo $produk2->getPrice()."<br>";
-
-    echo $produk1->getTitle()."<br>";
-    $produk1->setTitle("Shingeki no Kyojin");
-    echo $produk1->getInfoProduk()."<br>";
+    
+    $cetakProduk = new CetakInfoProduk();
+    $cetakProduk->addProduk($produk1);
+    $cetakProduk->addProduk($produk2);
+    echo $cetakProduk->cetak();
