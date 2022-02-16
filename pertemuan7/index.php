@@ -13,7 +13,7 @@
                 
         protected $discount = 0;
 
-        protected function __construct($title = "title", $studio = "studio", $genre = "genre", $price = 0)
+        public function __construct($title = "title", $studio = "studio", $genre = "genre", $price = 0)
         {
             $this->title = $title;
             $this->studio = $studio;
