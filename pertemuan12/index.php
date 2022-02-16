@@ -1,15 +1,20 @@
 <?php
     // Pertemuan 12 : Interface
 
+    interface InfoProduk
+    {
+        public function getInfoProduk();
+    }
+
     abstract class Produk
     {
-        private $title,
+        protected $title,
                 $studio,
                 $genre,
                 $price,
                 $discount = 0;
 
-        public function __construct($title = "title", $studio = "studio", $genre = "genre", $price = 0)
+        protected function __construct($title = "title", $studio = "studio", $genre = "genre", $price = 0)
         {
             $this->title = $title;
             $this->studio = $studio;
@@ -17,21 +22,15 @@
             $this->price = $price;
         }
 
-        private function getLabel()
+        protected function getLabel()
         {
             return "$this->studio, $this->genre";
         }
 
-        abstract public function getInfoProduk();
-
-        public function getInfo()
-        {
-            $str = "{$this->title} | {$this->getLabel()} (Rp.{$this->price})";
-            return $str;
-        }
+        abstract protected function getInfo();
 
         // Setter Method
-        public function setTitle($title)
+        protected function setTitle($title)
         {
             if (!is_string($title)) 
             {
@@ -41,60 +40,66 @@
             $this->title = $title;
         }
 
-        public function setStudio($studio)
+        protected function setStudio($studio)
         {
             $this->studio = $studio;
         }
 
-        public function setGenre($genre)
+        protected function setGenre($genre)
         {
             $this->genre = $genre;
         }
 
-        public function setPrice($price)
+        protected function setPrice($price)
         {
             $this->price = $price;
         }
 
-        public function setDiscount($discount)
+        protected function setDiscount($discount)
         {
             $this->discount=$discount;
         }
 
         // Getter Method
-        public function getTitle()
+        protected function getTitle()
         {
             return $this->title;
         }
 
-        public function getStudio()
+        protected function getStudio()
         {
             return $this->studio;
         }
 
-        public function getGenre()
+        protected function getGenre()
         {
             return $this->genre;
         }
 
-        public function getPrice()
+        protected function getPrice()
         {
             return $this->price - ($this->price * $this->discount / 100);
         }
         
-        public function getDiscount()
+        protected function getDiscount()
         {
             return $this->discount;
         }
     }
 
-    class Anime extends Produk
+    class Anime extends Produk implements InfoProduk
     {
         private $totalEpisode;
 
         public function __construct($title = "title", $studio = "studio",$genre = "genre", $price = 0, $totalEpisode = 0) {
             parent::__construct($title, $studio ,$genre, $price);
             $this->totalEpisode = $totalEpisode;
+        }
+
+        public function getInfo()
+        {
+            $str = "{$this->title} | {$this->getLabel()} (Rp.{$this->price})";
+            return $str;
         }
 
         public function getInfoProduk()
@@ -104,13 +109,19 @@
         }
     }
 
-    class Game extends Produk
+    class Game extends Produk implements InfoProduk
     {
         private $totalPlayTime;
 
         public function __construct($title = "title", $studio = "studio",$genre = "genre", $price = 0, $totalPlayTime = 0) {
             parent::__construct($title, $studio, $genre, $price);
             $this->totalPlayTime = $totalPlayTime;
+        }
+
+        public function getInfo()
+        {
+            $str = "{$this->title} | {$this->getLabel()} (Rp.{$this->price})";
+            return $str;
         }
         
         public function getInfoProduk()
