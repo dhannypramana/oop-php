@@ -79,7 +79,7 @@
         {
             return $this->price - ($this->price * $this->discount / 100);
         }
-
+        
         public function getDiscount()
         {
             return $this->discount;
