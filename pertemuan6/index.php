@@ -1,5 +1,5 @@
 <?php
-    // Pertemuan 5 : Overriding
+    // Pertemuan 6 : Overriding
 
     class Produk
     {
@@ -41,7 +41,7 @@
 
         public function getInfoProduk()
         {
-            $str = "Anime : " . parent::getInfoProduk() . "- {$this->totalEpisode} Episode";
+            $str = "Anime : " . parent::getInfoProduk() . " - {$this->totalEpisode} Episode";
             return $str;
         }
     }

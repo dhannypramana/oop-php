@@ -6,9 +6,8 @@
         private $title,
                 $studio,
                 $genre,
-                $price;
-                
-        protected $discount = 0;
+                $price,
+                $discount = 0;
 
         public function __construct($title = "title", $studio = "studio", $genre = "genre", $price = 0)
         {
@@ -29,9 +28,61 @@
             return $str;
         }
 
+        // Setter Method
+        public function setTitle($title)
+        {
+            if (!is_string($title)) 
+            {
+                throw new Exception("Title must be a String", 1);
+            }
+
+            $this->title = $title;
+        }
+
+        public function setStudio($studio)
+        {
+            $this->studio = $studio;
+        }
+
+        public function setGenre($genre)
+        {
+            $this->genre = $genre;
+        }
+
+        public function setPrice($price)
+        {
+            $this->price = $price;
+        }
+
+        public function setDiscount($discount)
+        {
+            $this->discount=$discount;
+        }
+
+        // Getter Method
+        public function getTitle()
+        {
+            return $this->title;
+        }
+
+        public function getStudio()
+        {
+            return $this->studio;
+        }
+
+        public function getGenre()
+        {
+            return $this->genre;
+        }
+
         public function getPrice()
         {
             return $this->price - ($this->price * $this->discount / 100);
+        }
+
+        public function getDiscount()
+        {
+            return $this->discount;
         }
     }
 
@@ -46,7 +97,7 @@
 
         public function getInfoProduk()
         {
-            $str = "Anime : " . parent::getInfoProduk() . "- {$this->totalEpisode} Episode";
+            $str = "Anime : " . parent::getInfoProduk() . " - {$this->totalEpisode} Episode";
             return $str;
         }
     }
@@ -65,11 +116,6 @@
             $str = "Game : ". parent::getInfoProduk() ." ~ {$this->totalPlayTime} Jam";
             return $str;
         }
-
-        public function setDiscount($discount)
-        {
-            $this->discount=$discount;
-        }
     }
     
     
@@ -84,6 +130,6 @@
     $produk2->setDiscount(50);
     echo $produk2->getPrice()."<br>";
 
-    $produk1->setDiscount(90); //error
-    $produk1->discount = 90; //error
-    $produk1->getPrice();
+    echo $produk1->getTitle()."<br>";
+    $produk1->setTitle("Shingeki no Kyojin");
+    echo $produk1->getInfoProduk()."<br>";
